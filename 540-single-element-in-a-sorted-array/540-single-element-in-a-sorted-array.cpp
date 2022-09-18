@@ -1,17 +1,15 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
-        unordered_map<int,int>mp;
-        
-        for(auto it: nums)
+        int low = 0, high = nums.size()-1;
+        while(low < high)
         {
-            mp[it]++;
+            int mid = low + (high-low)/2;
+            int idx = (mid%2==0) ? mid+1 : mid-1;
+            
+            if(nums[mid] == nums[idx]) low = mid+1;
+            else high = mid;
         }
-        for(auto it: mp)
-        {
-            if(it.second==1)
-                return it.first;
-        }
-        return 0;
+        return nums[low];
     }
 };
