@@ -2,7 +2,7 @@ class Solution {
 public:
     int beautySum(string s) {
         int  ans = 0;
-        map<char,int> mp;
+        unordered_map<char,int> mp;
         int n = s.size();
         for(int i=0;i<n;i++)
         {
