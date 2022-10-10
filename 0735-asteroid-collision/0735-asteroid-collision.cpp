@@ -21,6 +21,7 @@ public:
                 }
                 else if(!st.empty() && st.top() > -it)
                 {
+                    continue;
                 }
                 else
                 {
