@@ -39,12 +39,10 @@ public:
             {
                 rightsmaller[i] = st.top()-1;
             }
+            ans = max(ans, (rightsmaller[i] - leftsmaller[i] + 1)* heights[i]);
             st.push(i);
         }
-        for(int i=0;i<n;i++)
-        {
-            ans = max(ans, (rightsmaller[i] - leftsmaller[i] + 1)* heights[i]);
-        }
+        
         return ans;
     }
 };
