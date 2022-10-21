@@ -23,46 +23,31 @@ public:
         {
             return list2;
         }
-        ListNode* third=NULL;
-        ListNode* last=NULL;
-        if(list1->val < list2->val)
-        {
-            third = last = list1;
-            list1 = list1->next;
-            last->next = NULL;
-        }
-        else
-        {
-            third = last = list2;
-            list2 = list2->next;
-            last->next = NULL;
-        }
-        while(list1 && list2)
+        ListNode* ans = new ListNode(0);
+        ListNode* temp = ans;
+        while(list1 != NULL && list2 != NULL)
         {
             if(list1->val < list2->val)
             {
-                last->next = list1;
-                last = list1;
+                temp->next = list1;
                 list1 = list1->next;
-                last->next = NULL;
+                temp = temp->next;
             }
             else
             {
-                last->next = list2;
-                last = list2;
+                temp->next = list2;
                 list2 = list2->next;
-                last->next = NULL;
+                temp = temp->next;
             }
         }
         if(list1)
         {
-            last->next = list1;
+            temp->next = list1;
         }
         if(list2)
         {
-            last->next = list2;
+            temp->next = list2;
         }
-        
-        return third;
+        return ans->next;
     }
 };
