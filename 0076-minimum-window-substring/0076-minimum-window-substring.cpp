@@ -7,7 +7,7 @@ public:
             mp[it]++;
         }
         int count = mp.size();
-        int ans = INT_MAX;
+        int length = INT_MAX;
         int i=0,j=0,start=0;
         
         while(j<s.size())
@@ -22,9 +22,9 @@ public:
             {
                 while(count==0)
                 {
-                    if(ans > j-i+1)
+                    if(length > j-i+1)
                     {
-                        ans = j-i+1;
+                        length = j-i+1;
                         start= i;
                     }
                     mp[s[i]]++;
@@ -37,8 +37,8 @@ public:
             }
             j++;
         }
-        if(ans != INT_MAX)
-            return s.substr(start,ans);
+        if(length != INT_MAX)
+            return s.substr(start,length);
         return "";
     }
 };
