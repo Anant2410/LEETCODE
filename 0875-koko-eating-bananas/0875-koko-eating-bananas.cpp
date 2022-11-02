@@ -8,7 +8,7 @@ public:
             sum += (piles[i]/k);
             if(piles[i]%k != 0)
             {
-                sum += 1;
+               sum += 1;
             }
         }
         return sum;
