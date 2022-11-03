@@ -17,7 +17,7 @@ class Solution{
         priority_queue<int> maxh;
         for(int i=l;i<=r;i++)
         {
-            maxh.push(arr[i]);
+           maxh.push(arr[i]);
             if(maxh.size() > k)
             {
                 maxh.pop();
