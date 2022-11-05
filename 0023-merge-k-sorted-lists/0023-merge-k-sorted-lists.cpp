@@ -23,12 +23,14 @@ public:
             }
         }
         sort(ans.begin(), ans.end());
-        ListNode* res = NULL;
-        
-        for(int i = ans.size()-1;i>=0;i--)
+        ListNode* res = new ListNode();
+        temp = res;
+        for(int i=0;i<ans.size();i++)
         {
-            res = new ListNode(ans[i], res);
+            ListNode* x = new ListNode(ans[i]);
+            temp->next = x;
+            temp = temp->next;
         }
-        return res;
+        return res->next;
     }
 };
