@@ -11,30 +11,34 @@
  */
 class Solution {
 public:
-    int fl(TreeNode* root){
-        int h = 0;
-        while(root){
-            h++;
-            root = root->left;
-        }
-        return h;
-    }
-    int fr(TreeNode* root){
-        int h = 0;
-        while(root){
-            h++;
+    int fun(TreeNode* root)
+    {
+        int ans = 0;
+        while(root)
+        {
+            ans++;
             root = root->right;
         }
-        return h;
+        return ans;
+    }
+    int f(TreeNode* root)
+    {
+        int ans = 0;
+        while(root)
+        {
+            ans++;
+            root = root->left;
+        }
+        return ans;
     }
     int countNodes(TreeNode* root) {
-        if(root==NULL) return 0;
+        int l = f(root);
+        int r = fun(root);
         
-        int l = fl(root);
-        int r = fr(root);
         if(l==r)
+        {
             return pow(2,l) - 1;
-        else
-            return 1 + countNodes(root->left) + countNodes(root->right);
+        }
+        return 1 + countNodes(root->left) + countNodes(root->right);
     }
 };
