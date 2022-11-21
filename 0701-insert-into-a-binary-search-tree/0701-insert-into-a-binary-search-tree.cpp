@@ -16,30 +16,30 @@ public:
         {
             return new TreeNode(val);
         }
-        TreeNode* temp = root;
-        while(temp)
+        TreeNode* curr = root;
+        while(true)
         {
-            if(temp->val <= val)
+            if(curr->val >= val)
             {
-                if(temp->right!= NULL)
+                if(curr->left!=NULL)
                 {
-                    temp = temp->right;
+                    curr = curr->left;
                 }
                 else
                 {
-                 temp->right = new TreeNode(val);
+                    curr->left = new TreeNode(val);
                     break;
                 }
             }
             else
             {
-                if(temp->left!=NULL)
+                if(curr->right)
                 {
-                    temp = temp->left;
+                    curr = curr->right;
                 }
                 else
                 {
-                    temp->left = new TreeNode(val);
+                    curr->right = new TreeNode(val);
                     break;
                 }
             }
