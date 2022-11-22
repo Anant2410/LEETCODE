@@ -13,29 +13,28 @@ class Solution {
 public:
     TreeNode* find(TreeNode* root)
     {
-        if(root->right==NULL)
-        {
+        if(root->left==NULL)
             return root;
-        }
-        return find(root->right);
+        
+        return find(root->left);
     }
-    
     TreeNode* fun(TreeNode* root)
     {
-        if(root->left==NULL) return root->right;
-        if(root->right==NULL) return root->left;
-        TreeNode* rightchild = root->right;
-        TreeNode* leftchild = find(root->left);
-        leftchild->right = rightchild;
-        
-        return root->left;
+        if(root->left==NULL)
+            return root->right;
+        if(root->right ==NULL)
+            return root->left;
+        TreeNode* leftchild = root->left;
+        TreeNode* rightchild = find(root->right);
+        rightchild->left = leftchild;
+        return root->right;
     }
     TreeNode* deleteNode(TreeNode* root, int key) {
         if(root==NULL)
         {
             return NULL;
         }
-        if(root->val==key)
+        if(root->val == key)
         {
             return fun(root);
         }
@@ -44,7 +43,7 @@ public:
         {
             if(key < root->val)
             {
-                if(root->left && root->left->val == key)
+                if(root->left && root->left->val ==key)
                 {
                     root->left = fun(root->left);
                     break;
@@ -56,7 +55,7 @@ public:
             }
             else
             {
-                if(root->right && root->right->val == key)
+                if(root->right && root->right->val ==key)
                 {
                     root->right = fun(root->right);
                     break;
