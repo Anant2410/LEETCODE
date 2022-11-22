@@ -111,19 +111,19 @@ int main() {
 // Function to delete a node from BST.
 Node* f(Node* root)
 {
-    if(root->right==NULL) return root;
+    if(root->left==NULL) return root;
     
-    return f(root->right);
+    return f(root->left);
 }
 Node* fun(Node* root)
 {
     if(root->left==NULL) return root->right;
     if(root->right==NULL) return root->left;
     
-    Node* leftchild = f(root->left);
-    Node* rightchild = root->right;
-    leftchild->right = rightchild;
-    return root->left;
+    Node* leftchild = root->left;
+    Node* rightchild = f(root->right);
+    rightchild->left = leftchild;
+    return root->right;
 }
 Node *deleteNode(Node *root, int x) {
     if(root==NULL)
