@@ -11,35 +11,20 @@
  */
 class Solution {
 public:
-    TreeNode* fun(vector<int>& preorder, int prestart, int preend, 
-                 vector<int>& inorder, int instart, int inend, map<int,int>&mp)
+    TreeNode* fun(vector<int>& preorder,int & i, int bound)
     {
-        if(prestart > preend || instart > inend)
+        if(i==preorder.size() || preorder[i] > bound)
         {
             return NULL;
         }
-        TreeNode* root = new TreeNode(preorder[prestart]);
-        int inroot = mp[root->val];
-        int rem = inroot - instart;
-        root->left = fun(preorder,prestart+1,prestart+rem,inorder,instart,inroot-1,mp);
-        root->right = fun(preorder,prestart+rem+1,preend,inorder,inroot+1,inend,mp);
-        
+        TreeNode* root = new TreeNode(preorder[i]);
+        i++;
+        root->left = fun(preorder,i,root->val);
+        root->right = fun(preorder,i,bound);
         return root;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        vector<int> inorder;
-        for(auto it: preorder)
-        {
-            inorder.push_back(it);
-        }
-        sort(inorder.begin(), inorder.end());
-        map<int,int> mp;
-        for(int i=0;i<inorder.size();i++)
-        {
-            mp[inorder[i]] = i;
-        }
-        TreeNode* root = fun(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1,mp);
-        
-        return root;
+        int i=0;
+        return fun(preorder,i,INT_MAX);
     }
 };
