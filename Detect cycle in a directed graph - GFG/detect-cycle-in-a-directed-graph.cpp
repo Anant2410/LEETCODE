@@ -16,7 +16,7 @@ class Solution {
             {
                 if(dfs(it,n,adj,vis,pathvis)) return true;
             }
-            else if(pathvis[it] && vis[it])
+            else if(pathvis[it])
             {
                 return true;
             }
