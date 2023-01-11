@@ -10,50 +10,42 @@ using namespace std;
 
 class Solution {
   public:
-  bool dfs(int node, int n, vector<int> adj[] , int vis[], int pathvis[], int check[])
-    {
-        vis[node] = 1;
-        pathvis[node] = 1;
-        check[node] = 0;
-        for(auto it: adj[node])
+    vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
+        vector<int> adjr[V];
+        vector<int> indegree(V,0);
+        for(int i=0;i<V;i++)
         {
-            if(!vis[it])
+            for(auto it: adj[i])
             {
-                if(dfs(it,n,adj,vis,pathvis,check))
+                adjr[it].push_back(i);
+                indegree[i]++;
+            }
+        }
+        queue<int> q;
+        for(int i=0;i<V;i++)
+        {
+            if(indegree[i] == 0)
+            {
+                q.push(i);
+            }
+        }
+        vector<int> ans;
+        while(!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+            ans.push_back(node);
+            for(auto it: adjr[node])
+            {
+                indegree[it]--;
+                if(indegree[it] == 0)
                 {
-                    check[node] = 0;
-                    return true;
+                    q.push(it);
                 }
             }
-            else if(pathvis[it])
-            {
-                check[node] = 0;
-                return true;
-            }
         }
-        check[node] = 1;
-        pathvis[node] = 0;
-        return false;
-    }
-    vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
-        int vis[V] = {0};
-        int pathvis[V] = {0};
-        vector<int> ans;
-        int check[V] ={0};
-        for(int i=0;i<V;i++)
-        {
-            if(!vis[i])
-            {
-                dfs(i,V,adj,vis,pathvis,check);
-            }
-        }
-        for(int i=0;i<V;i++)
-        {
-            if(check[i])
-            {
-                ans.push_back(i);
-            }
-        }
+        
+        sort(ans.begin(), ans.end());
         return ans;
     }
 };
