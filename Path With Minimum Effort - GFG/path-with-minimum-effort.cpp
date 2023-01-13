@@ -11,7 +11,7 @@ class Solution {
         priority_queue<pair<int,pair<int,int>>, 
         vector<pair<int,pair<int,int>>>, 
         greater<pair<int,pair<int,int>>>> pq;
-        
+        //time complexity is e log v
         vector<vector<int>> dist(n, vector<int>(m,1e9));
         dist[0][0] = 0;
         pq.push({0,{0,0}});
