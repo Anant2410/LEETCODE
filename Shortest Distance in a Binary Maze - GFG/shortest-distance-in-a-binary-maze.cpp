@@ -17,6 +17,7 @@ class Solution {
         queue<pair<int, pair<int,int>>> q;
         q.push({0,source});
         vector<vector<int>> dist(n, vector<int>(m,INT_MAX));
+        dist[source.first][source.second] = 0;
         int delrow[] = {-1,0,+1,0};
         int delcol[] = {0,+1,0,-1};
         while(!q.empty())
