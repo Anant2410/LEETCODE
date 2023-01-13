@@ -20,14 +20,14 @@ class Solution {
             int node = q.front().first;
             int steps = q.front().second;
             q.pop();
+            if(node == end) return steps;
             for(auto it: arr)
             {
                 int num = (it*node)%100000;
-                if(steps + 1 < dist[num])
+                if(dist[num] > steps + 1)
                 {
-                    dist[num] = steps + 1;
-                    if(num == end) return steps+1;
-                    q.push({num,steps+1});
+                    dist[num] = steps+1;
+                    q.push({num,dist[num]});
                 }
             }
         }
