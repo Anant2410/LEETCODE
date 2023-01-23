@@ -17,14 +17,11 @@ class Solution {
                 dfs(it,adj,ans,vis);
             }
         }
-        return;
     }
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         int vis[V] = {0};
-        int start = 0;
-        vis[start] = 1;
         vector<int> ans;
-        dfs(start,adj,ans,vis);
+        dfs(0,adj,ans,vis);
         return ans;
     }
 };
