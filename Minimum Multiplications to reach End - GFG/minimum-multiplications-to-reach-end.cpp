@@ -11,23 +11,23 @@ using namespace std;
 class Solution {
   public:
     int minimumMultiplications(vector<int>& arr, int start, int end) {
-        queue<pair<int,int>> q;
-        q.push({start,0});
         vector<int> dist(100000, 1e9);
         dist[start] = 0;
+        queue<pair<int,int>> q;
+        q.push({start,0});
         while(!q.empty())
         {
             int node = q.front().first;
-            int steps = q.front().second;
+            int distance = q.front().second;
             q.pop();
-            if(node == end) return steps;
+            if(node == end) return distance;
             for(auto it: arr)
             {
-                int num = (it*node)%100000;
-                if(dist[num] > steps + 1)
+                int adjnode = (it*node)%100000;
+                if(dist[adjnode] > distance + 1)
                 {
-                    dist[num] = steps+1;
-                    q.push({num,dist[num]});
+                    dist[adjnode] = distance+1;
+                    q.push({adjnode,dist[adjnode]});
                 }
             }
         }
