@@ -43,6 +43,6 @@ Step 4: 4095*65 = 266175 % 100000 = 66175
 <ul>
 	<li><span style="font-size:18px">1 &lt;= n and n &lt;= 10<sup>4</sup></span></li>
 	<li><span style="font-size:18px">1 &lt;= arr[i] and arr[i] &lt;= 10<sup>4</sup></span></li>
-	<li><span style="font-size:18px">1 &lt;= start, end &lt;= 10<sup>5</sup></span></li>
+	<li><span style="font-size:18px">1 &lt;= start, end &lt;&nbsp;10<sup>5</sup></span></li>
 </ul>
 </div>
