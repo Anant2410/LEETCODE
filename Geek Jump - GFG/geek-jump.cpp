@@ -21,18 +21,21 @@ class Solution {
 //   }
     int minimumEnergy(vector<int>& height, int n) {
         vector<int> dp(n,-1);
-        dp[0] = 0;
+        int prev = 0,prev2 = -1;
         for(int i=1;i<n;i++)
         {
-            int up = dp[i-1] + abs(height[i] - height[i-1]);
+            int up = prev + abs(height[i] - height[i-1]);
             int down = INT_MAX;
             if(i>1)
             {
-                down = dp[i-2] + abs(height[i] - height[i-2]);
+                down = prev2 + abs(height[i] - height[i-2]);
             }
-            dp[i] = min(up,down);
+            int curr = min(up,down);
+            
+            prev2 = prev;
+            prev = curr;
         }
-        return dp[n-1];
+        return prev;
     }
 };
 
