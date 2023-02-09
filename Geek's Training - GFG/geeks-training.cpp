@@ -29,14 +29,15 @@ class Solution {
         return dp[day][last]  = ans;
     }
     int maximumPoints(vector<vector<int>>& points, int n) {
-        vector<vector<int>> dp(n, vector<int>(4,0));
-        dp[0][0] = max(points[0][1], points[0][2]);
-        dp[0][1] = max(points[0][0], points[0][2]);
-        dp[0][2] = max(points[0][1], points[0][0]);
-        dp[0][3] = max(points[0][0], max(points[0][1], points[0][2]));
+        vector<int> prev(4,0);
+        prev[0] = max(points[0][1], points[0][2]);
+        prev[1] = max(points[0][0], points[0][2]);
+        prev[2] = max(points[0][1], points[0][0]);
+        prev[3] = max(points[0][0], max(points[0][1], points[0][2]));
         
         for(int day = 1;day<n;day++)
         {
+            vector<int> temp(4,0);
             for(int last = 0;last<4;last++)
             {
                 int ans = 0;
@@ -44,14 +45,15 @@ class Solution {
                 {
                     if(last!=task)
                     {
-                        int point  = points[day][task] + dp[day-1][task];
+                        int point  = points[day][task] + prev[task];
                         ans = max(ans,point);
                     }
                 }
-                dp[day][last] = ans;
+                temp[last] = ans;
             }
+            prev = temp;
         }
-        return dp[n-1][3];
+        return prev[3];
     }
 };
 
