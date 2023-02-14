@@ -36,24 +36,26 @@ public:
         return dp[day][last] =  maxi;
     }
     int minCost(vector<vector<int>> &colors, int n) {
-        vector<vector<int>> dp(n, vector<int>(4,0));
-        dp[0][0] = min(colors[0][1] , colors[0][2]);
-        dp[0][1] = min(colors[0][0] , colors[0][2]);
-        dp[0][2] = min(colors[0][1] , colors[0][0]);
-        dp[0][3] = min(colors[0][1] , min(colors[0][0],colors[0][2]));
+        vector<int> prev(4,0);
+        prev[0] = min(colors[0][1] , colors[0][2]);
+        prev[1] = min(colors[0][0] , colors[0][2]);
+        prev[2] = min(colors[0][1] , colors[0][0]);
+        prev[3] = min(colors[0][1] , min(colors[0][0],colors[0][2]));
 
         for (int day = 1; day < n; day++) {
+            vector<int> curr(4,0);
             for (int last = 0; last < 4; last++) {
-                dp[day][last] = INT_MAX;
+                curr[last] = INT_MAX;
                 for (int col = 0; col <= 2; col++) {
                     if (col != last) {
-                        int work = colors[day][col] + dp[day - 1][col];
-                        dp[day][last] = min(dp[day][last], work);
+                        int work = colors[day][col] + prev[col];
+                        curr[last] = min(curr[last], work);
                     }
                 }
             }
+            prev = curr;
         }
-        return dp[n - 1][3];
+        return prev[3];
     }
 };
 
