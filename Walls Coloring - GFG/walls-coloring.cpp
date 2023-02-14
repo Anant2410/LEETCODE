@@ -45,10 +45,10 @@ public:
         for (int day = 1; day < n; day++) {
             for (int last = 0; last < 4; last++) {
                 dp[day][last] = INT_MAX;
-                for (int task = 0; task <= 2; task++) {
-                    if (task != last) {
-                        int activity = colors[day][task] + dp[day - 1][task];
-                        dp[day][last] = min(dp[day][last], activity);
+                for (int col = 0; col <= 2; col++) {
+                    if (col != last) {
+                        int work = colors[day][col] + dp[day - 1][col];
+                        dp[day][last] = min(dp[day][last], work);
                     }
                 }
             }
