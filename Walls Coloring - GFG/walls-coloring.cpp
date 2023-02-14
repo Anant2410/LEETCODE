@@ -10,31 +10,7 @@ using namespace std;
 
 class Solution{   
 public:
-    int f(int day, int last, vector<vector<int>>& colors, vector<vector<int>>& dp)
-    {
-        if(day==0) 
-        {
-            int maxi = INT_MAX;
-            for(int i=0;i<3;i++)
-            {
-                if(i!=last)
-                {
-                    maxi = min(maxi, colors[0][i]);
-                }
-            }
-            return dp[day][last] =  maxi;
-        }
-        int maxi=INT_MAX;
-        for(int j=0;j<3;j++)
-        {
-            if(j!= last)
-            {
-                int ans = colors[day][j] + f(day-1,j,colors,dp);
-                maxi = min(maxi,ans);
-            }
-        }
-        return dp[day][last] =  maxi;
-    }
+    
     int minCost(vector<vector<int>> &colors, int n) {
         vector<int> prev(4,0);
         prev[0] = min(colors[0][1] , colors[0][2]);
