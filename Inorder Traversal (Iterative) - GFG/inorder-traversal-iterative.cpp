@@ -99,23 +99,33 @@ public:
     vector<int> inOrder(Node* root)
     {
         vector<int> ans;
+        Node* prev,*curr=root;
         if(root==NULL) return ans;
-        Node* curr = root;
-        stack<Node*> st;
-        while(true)
+        while(curr!=NULL)
         {
-            if(curr)
+            if(curr->left==NULL)
             {
-                st.push(curr);
-                curr = curr->left;
+                ans.push_back(curr->data);
+                curr = curr->right;
             }
             else
             {
-                if(st.empty()) break;
-                Node* temp = st.top();
-                st.pop();
-                ans.push_back(temp->data);
-                curr = temp->right;
+                prev = curr->left;
+                while(prev->right && prev->right!=curr)
+                {
+                    prev = prev->right;
+                }
+                if(prev->right==curr)
+                {
+                    prev->right=NULL;
+                    ans.push_back(curr->data);
+                    curr = curr->right;
+                }
+                else
+                {
+                    prev->right=curr;
+                    curr = curr->left;
+                }
             }
         }
         return ans;
