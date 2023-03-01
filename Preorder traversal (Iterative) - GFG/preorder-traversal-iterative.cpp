@@ -100,18 +100,34 @@ class Solution{
     vector<int> preOrder(Node* root)
     {
         vector<int> ans;
+        Node* prev,*curr=root;
         if(root==NULL) return ans;
-        
-        stack<Node*> st;
-        st.push(root);
-        Node* curr = root;
-        while(!st.empty())
+        while(curr!=NULL)
         {
-            Node* node = st.top();
-            st.pop();
-            ans.push_back(node->data);
-            if(node->right) st.push(node->right);
-            if(node->left) st.push(node->left);
+            if(curr->left==NULL)
+            {
+                ans.push_back(curr->data);
+                curr = curr->right;
+            }
+            else
+            {
+                prev = curr->left;
+                while(prev->right && prev->right!=curr)
+                {
+                    prev = prev->right;
+                }
+                if(prev->right==curr)
+                {
+                    prev->right=NULL;
+                    curr = curr->right;
+                }
+                else
+                {
+                    prev->right=curr;
+                    ans.push_back(curr->data);
+                    curr = curr->left;
+                }
+            }
         }
         return ans;
     }
