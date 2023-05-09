@@ -9,7 +9,6 @@ using namespace std;
 
 class Solution{
 public:
-    int mod = 1003;
     int dp[201][201][2];
     int f(string str, int i, int j, bool flag)
     {
@@ -32,25 +31,25 @@ public:
             {
                 if(flag == true)
                 {
-                    ans = (ans + (lt * rt)%mod)%mod ;
+                    ans = (ans + lt * rt)%1003 ;
                 }
                 else
                 {
-                    ans = (ans + (lt*rf)%mod + (lf*rt)%mod + (lf*rf)%mod)%mod;
+                    ans = (ans + lt*rf + lf*rt + lf*rf)%1003;
                 }
             }
             else if(str[k] == '|')
             {
-                if(flag == true) ans = (ans + (lt*rt)%mod + (lt*rf)%mod + (lf*rt)%mod)%mod;
-                else ans = ans + (lf*rf)%mod;
+                if(flag == true) ans = (ans + lt*rt + lt*rf + lf*rt)%1003;
+                else ans = (ans + lf*rf)%1003;
             }
             else if(str[k] == '^')
             {
-                if(flag == true) ans = (ans + (lt*rf)%mod + (lf*rt)%mod)%mod;
-                else ans = (ans + (lt*rt)%mod + (rf*lf)%mod)%mod;
+                if(flag == true) ans = (ans + lt*rf + lf*rt)%1003;
+                else ans = (ans + lt*rt + rf*lf)%1003;
             }
         }
-        return dp[i][j][flag] =  ans;
+        return dp[i][j][flag] = ans;
     }
     int countWays(int N, string S){
         for(int i=0;i<N+1;i++)
