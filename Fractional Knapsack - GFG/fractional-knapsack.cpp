@@ -16,36 +16,41 @@ struct Item{
     int weight;
 };
 */
-bool comp(Item a, Item b)
-    {
-        double r1 = (double)a.value/(double)a.weight;
-        double r2 = (double)b.value/(double)b.weight;
-        return r1 > r2;
-    }
+
 
 class Solution
 {
     public:
+    //Function to get the maximum total value in the knapsack.
+    static bool cmp(pair<double,Item>a, pair<double,Item>b)
+    {
+        return a.first > b.first;
+    }
     double fractionalKnapsack(int W, Item arr[], int n)
     {
-        sort(arr,arr+n,comp);
-        int wt=0;
-        double ans = 0.0;
+        vector<pair<double,Item>> vc;
         for(int i=0;i<n;i++)
         {
-            if(wt + arr[i].weight <= W)
+            double perUnit = (1.0*arr[i].value) / (1.0*arr[i].weight);
+            vc.push_back({perUnit,arr[i]});
+        }
+        sort(vc.begin(), vc.end(), cmp);
+        
+        double total = 0;
+        for(int i=0;i<n;i++)
+        {
+            if(vc[i].second.weight > W)
             {
-                wt += arr[i].weight;
-                ans += arr[i].value;
+                total += W*vc[i].first;
+                W = 0;
             }
             else
             {
-                int remain = W - wt;
-                ans += (arr[i].value/(double)arr[i].weight)*(double)remain;
-                break;
+                total += vc[i].second.value;
+                W -= vc[i].second.weight;
             }
         }
-        return ans;
+        return total;
     }
         
 };
