@@ -11,47 +11,33 @@ using namespace std;
 class Solution{
     public:
     void solve(vector<vector<int>>& m, vector<string>&ans, string path, int row, int col, 
-    vector<vector<int>>& vis, int n)
+    vector<vector<int>>& vis, int n, int dr[], int dc[])
     {
         if(row == n-1 && col == n-1)
         {
             ans.push_back(path);
             return;
         }
-        //for down
-        if(row+1<n && !vis[row+1][col] && m[row+1][col])
+        string dir = "ULDR";
+        for(int i=0;i<4;i++)
         {
-            vis[row][col] = 1;
-            solve(m,ans,path+'D',row+1,col,vis,n);
-            vis[row][col] = 0;
-        }
-        //up
-        if(row-1>=0 && !vis[row-1][col] && m[row-1][col])
-        {
-            vis[row][col] = 1;
-            solve(m,ans,path+'U',row-1,col,vis,n);
-            vis[row][col] = 0;
-        }
-        //right
-        if(col+1 < n && !vis[row][col+1] && m[row][col+1])
-        {
-            vis[row][col] = 1;
-            solve(m,ans,path+'R',row,col+1,vis,n);
-            vis[row][col] = 0;
-        }
-        //left
-        if(col-1>=0 && !vis[row][col-1] && m[row][col-1])
-        {
-            vis[row][col] = 1;
-            solve(m,ans,path + 'L', row,col-1,vis,n);
-            vis[row][col] = 0;
+            int nr = row + dr[i];
+            int nc = col + dc[i];
+            if(nr>=0 && nr <n && nc>=0 && nc <n && !vis[nr][nc] && m[nr][nc])
+            {
+                vis[row][col] =1;
+                solve(m,ans,path+dir[i],nr,nc,vis,n,dr,dc);
+                vis[row][col] = 0;
+            }
         }
     }
     vector<string> findPath(vector<vector<int>> &m, int n) {
         vector<string> ans;
         vector<vector<int>> vis(n, vector<int>(n,0));
+        int dr[] = {-1,0,+1,0};
+        int dc[] = {0,-1,0,+1};
         if(m[0][0] == 1)
-            solve(m,ans,"",0,0,vis,n);
+            solve(m,ans,"",0,0,vis,n,dr,dc);
         return ans;
     }
 };
