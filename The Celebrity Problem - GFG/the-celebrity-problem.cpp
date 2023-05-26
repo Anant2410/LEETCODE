@@ -41,6 +41,8 @@ class Solution
         {
             if(i != init)
             {
+                //agar koi person aesa jo celebrity ko nahi janta aur celebrity person ko jaanta hai to 
+                // not possible
                 if(arr[i][init] == 0 || arr[init][i] == 1)
                 {
                     return -1;
