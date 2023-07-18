@@ -23,33 +23,33 @@ class Solution
         {
             int a = st.top();
             st.pop();
+            
             int b = st.top();
             st.pop();
-            // agar a knows b -> a is not celebrity (because celebrity does not know anyone)
+            
             if(arr[a][b] == 1)
             {
                 st.push(b);
             }
-            //agar a did not know b -> b is not celebrity (because celebrity is known by all)
             else
             {
                 st.push(a);
             }
         }
-        int init = st.top();
+        int celeb = st.top();
+        
         for(int i=0;i<n;i++)
         {
-            if(i != init)
+            if(i!=celeb)
             {
-                //agar koi person aesa jo celebrity ko nahi janta aur celebrity person ko jaanta hai to 
-                // not possible
-                if(arr[i][init] == 0 || arr[init][i] == 1)
+                if(arr[i][celeb] == 0 || arr[celeb][i] == 1)
                 {
                     return -1;
                 }
             }
         }
-        return init;
+        
+        return celeb;
     }
 };
 
