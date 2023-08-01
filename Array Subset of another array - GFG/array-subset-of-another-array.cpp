@@ -29,7 +29,7 @@ int main() {
 
 
 string isSubset(int a1[], int a2[], int n, int m) {
-    unordered_map<int,int> mp;
+    unordered_map<int,int>mp;
     for(int i=0;i<m;i++)
     {
         mp[a2[i]]++;
@@ -45,7 +45,9 @@ string isSubset(int a1[], int a2[], int n, int m) {
             }
         }
     }
-    if(mp.size() == 0) return "Yes";
-    
+    if(mp.size() == 0)
+    {
+        return "Yes";
+    }
     return "No";
 }
