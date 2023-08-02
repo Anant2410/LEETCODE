@@ -18,17 +18,17 @@ The merged list will be
 
 <pre><span style="font-size:18px"><strong>Input:
 </strong>K = 4
-arr[][]={{1,2,3,4}{2,2,3,4},
+arr[][]={{1,2,3,4},{2,2,3,4},
          {5,5,6,6},{7,8,9,9}}
 <strong>Output:
 </strong>1 2 2 2 3 3 4 4 5 5 6 6 7 8 9 9&nbsp;<strong>
 Explanation: </strong>Above test case has 4 sorted
 arrays of size 4, 4, 4, 4
 arr[][] = [[1, 2, 2, 2],&nbsp;[3, 3, 4, 4],
-[5, 5, 6, 6]&nbsp; [7, 8, 9, 9&nbsp;]]
+[5, 5, 6, 6],&nbsp;[7, 8, 9, 9&nbsp;]]
 The merged list will be 
 [1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 
-6, 6, 7, 8, 9, 9&nbsp;].</span></pre>
+6, 6, 7, 8, 9, 9].</span></pre>
 
 <p><span style="font-size:18px"><strong>Your&nbsp;Task:</strong><br>
 You do not need to read input or print anything. Your task is to complete&nbsp;<strong>mergeKArrays</strong>() function which takes 2 arguments, an arr[K][K] 2D Matrix containing K&nbsp;sorted arrays and an integer K denoting the number of sorted arrays, as input and returns the merged sorted array ( as a pointer to the merged sorted arrays in <strong>cpp,&nbsp;</strong>as an ArrayList in&nbsp;<strong>java,&nbsp;</strong>and list in&nbsp;<strong>python</strong>)</span></p>
