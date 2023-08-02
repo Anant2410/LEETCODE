@@ -21,17 +21,22 @@ class Solution
     //Function to merge k sorted arrays.
     vector<int> mergeKArrays(vector<vector<int>> arr, int K)
     {
-        vector<int> ans;
-        for(int i=0;i<K;i++)
-        {
-            vector<int>temp = arr[i];
-            for(auto it: temp)
-            {
-                ans.push_back(it);
-            }
-        }
-        sort(ans.begin(), ans.end());
-        return ans;
+       priority_queue<int,vector<int>, greater<int>> minh;
+       vector<int> ans;
+       for(int i=0;i<K;i++)
+       {
+           for(auto it: arr[i])
+           {
+               minh.push(it);
+           }
+       }
+       while(!minh.empty())
+       {
+           ans.push_back(minh.top());
+           minh.pop();
+       }
+       
+       return ans;
     }
 };
 
