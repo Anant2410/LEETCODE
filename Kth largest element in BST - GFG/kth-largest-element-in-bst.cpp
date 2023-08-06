@@ -97,23 +97,19 @@ struct Node {
 class Solution
 {
     public:
-    void inorder(Node* root, vector<int>& ans)
+    void fun(Node* root, priority_queue<int,vector<int>, greater<int>>& pq, int k)
     {
-        if(root==NULL) return ;
-        inorder(root->left,ans);
-        ans.push_back(root->data);
-        inorder(root->right,ans);
+        if(root==nullptr) return;
+        
+        pq.push(root->data);
+        if(pq.size() > k) pq.pop();
+        fun(root->left,pq,k);
+        fun(root->right,pq,k);
     }
     int kthLargest(Node *root, int K)
     {
-        vector<int> ans;
-        inorder(root,ans);
-        priority_queue<int, vector<int>, greater<int>> pq;
-        for(auto it: ans)
-        {
-            pq.push(it);
-            if(pq.size() > K) pq.pop();
-        }
+        priority_queue<int,vector<int>, greater<int>>pq;
+        fun(root,pq,K);
         return pq.top();
     }
 };
