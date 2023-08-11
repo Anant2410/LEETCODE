@@ -9,21 +9,20 @@ class Solution{
     public:
     int findSubArraySum(int arr[], int n, int k)
     {
-        int sum = 0;
-        int ans = 0;
         unordered_map<int,int> mp;
+        int sum = 0;
         mp[sum] = 1;
+        int count = 0;
         for(int i=0;i<n;i++)
         {
             sum += arr[i];
-            int rem = sum - k;
-            if(mp.count(rem))
+            if(mp.count(sum-k))
             {
-                ans += mp[rem];
+                count+= mp[sum-k];
             }
             mp[sum]++;
         }
-        return ans;
+        return count;
     }
 };
 
