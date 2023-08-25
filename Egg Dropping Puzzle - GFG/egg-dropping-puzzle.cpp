@@ -6,8 +6,7 @@ using namespace std;
 class Solution
 {
     public:
-    //Function to find minimum number of attempts needed in 
-    //order to find the critical floor.
+    // recurrence relation
     // int solve(int e, int f)
     // {
     //     if(f==0 || f==1) return f;
@@ -24,6 +23,7 @@ class Solution
     //     return ans;
     // }
     
+    //memoization
     //int dp[201][201];
     // int solve(int e, int f)
     // {
@@ -49,6 +49,8 @@ class Solution
     //     }
     //     return dp[e][f] = ans;
     // }
+    
+    //better optimization
     int dp[201][201];
     int solve(int e, int f)
     {
