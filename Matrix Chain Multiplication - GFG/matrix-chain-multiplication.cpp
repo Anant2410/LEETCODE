@@ -13,25 +13,23 @@ public:
     int solve(int arr[], int i, int j)
     {
         if(i>=j) return 0;
-        if(dp[i][j] != -1) return dp[i][j];
+        if(dp[i][j] != -1)
+        {
+            return dp[i][j];
+        }
         int ans = INT_MAX;
         for(int k=i;k<j;k++)
         {
-            int temp = solve(arr,i,k) + solve(arr,k+1,j) + arr[i-1] * arr[k] * arr[j];
+            int temp = solve(arr,i,k) + solve(arr,k+1,j) + arr[i-1]*arr[k]*arr[j];
+            
             ans = min(ans,temp);
         }
-        return dp[i][j] = ans;
+        return dp[i][j] =  ans;
     }
-    int matrixMultiplication(int n, int arr[])
+    int matrixMultiplication(int N, int arr[])
     {
-        for(int i=0;i<=100;i++)
-        {
-            for(int j=0;j<=100;j++)
-            {
-                dp[i][j] = -1;
-            }
-        }
-        return solve(arr,1,n-1);
+        memset(dp, -1, sizeof(dp));
+        return solve(arr,1,N-1);
     }
 };
 
