@@ -23,29 +23,67 @@ class Solution
     //     }
     //     return ans;
     // }
+    
+    //int dp[201][201];
+    // int solve(int e, int f)
+    // {
+    //     if(f==0 || f==1)
+    //     {
+    //         return f;
+    //     }
+    //     if(e==1)
+    //     {
+    //         return f;
+    //     }
+    //     if(dp[e][f] != -1)
+    //     {
+    //         return dp[e][f];
+    //     }
+        
+    //     int ans = INT_MAX;
+    //     for(int k=1;k<=f;k++)
+    //     {
+    //         int temp = 1 + max(solve(e-1,k-1), solve(e,f-k));
+            
+    //         ans = min(ans,temp);
+    //     }
+    //     return dp[e][f] = ans;
+    // }
     int dp[201][201];
     int solve(int e, int f)
     {
-        if(f==0 || f==1)
-        {
-            return f;
-        }
-        if(e==1)
-        {
-            return f;
-        }
-        if(dp[e][f] != -1)
-        {
-            return dp[e][f];
-        }
-        
+        if(e==1) return f;
+        if(f==0 || f==1) return f;
+        if(dp[e][f] != -1) return dp[e][f];
         int ans = INT_MAX;
+        
         for(int k=1;k<=f;k++)
         {
-            int temp = 1 + max(solve(e-1,k-1), solve(e,f-k));
+            int left,right;
+            if(dp[e-1][k-1] != -1)
+            {
+                left = dp[e-1][k-1];
+            }
+            else
+            {
+                left = solve(e-1,k-1);
+                dp[e-1][k-1] = left;
+            }
+            
+            if(dp[e][f-k] != -1)
+            {
+                right = dp[e][f-k];
+            }
+            else
+            {
+                right = solve(e,f-k);
+                dp[e][f-k] = right;
+            }
+            int temp = 1 + max(left,right);
             
             ans = min(ans,temp);
         }
+        
         return dp[e][f] = ans;
     }
     int eggDrop(int n, int k) 
