@@ -8,23 +8,50 @@ class Solution
     public:
     //Function to find minimum number of attempts needed in 
     //order to find the critical floor.
-    int fun(int eggs, int floor, vector<vector<int>>& dp)
+    // int solve(int e, int f)
+    // {
+    //     if(f==0 || f==1) return f;
+    //     if(e==1) return f;
+        
+    //     int ans = INT_MAX;
+        
+    //     for(int k=1;k<=f;k++)
+    //     {
+    //         int temp = 1 + max(solve(e-1,k-1), solve(e,f-k));
+            
+    //         ans = min(ans,temp);
+    //     }
+    //     return ans;
+    // }
+    int dp[201][201];
+    int solve(int e, int f)
     {
-        if(floor==0 || floor == 1) return floor;
-        if(eggs==1) return floor;
-        if(dp[eggs][floor] != -1) return dp[eggs][floor];
-        int ans = INT_MAX;
-        for(int k=1;k<=floor;k++)
+        if(f==0 || f==1)
         {
-            int temp = 1 + max(fun(eggs-1,k-1,dp), fun(eggs, floor-k,dp));
+            return f;
+        }
+        if(e==1)
+        {
+            return f;
+        }
+        if(dp[e][f] != -1)
+        {
+            return dp[e][f];
+        }
+        
+        int ans = INT_MAX;
+        for(int k=1;k<=f;k++)
+        {
+            int temp = 1 + max(solve(e-1,k-1), solve(e,f-k));
+            
             ans = min(ans,temp);
         }
-        return dp[eggs][floor] =  ans;
+        return dp[e][f] = ans;
     }
     int eggDrop(int n, int k) 
     {
-        vector<vector<int>>dp(n+1, vector<int>(k+1, -1));
-        return fun(n,k,dp);
+        memset(dp,-1,sizeof(dp));
+        return solve(n,k); 
     }
 };
 
