@@ -9,39 +9,17 @@ using namespace std;
 
 class Solution{
 public:
-    int fun(int arr[], int n, int target)
+    int solve(int arr[], int n, int sum)
     {
-        vector<vector<int>> dp(n+1, vector<int>(target+1,-1));
+        if(n==0) return 0;
         
-        for(int i=0;i<n+1;i++)
+        if(sum == 0) return 1;
+        
+        if(arr[n-1] <= sum)
         {
-            for(int j=0;j<=target;j++)
-            {
-                if(i==0)
-                {
-                    dp[i][j] = false;
-                }
-                if(j==0)
-                {
-                    dp[i][j] = true;
-                }
-            }
+            return solve(arr,n-1,sum-arr[n-1]) || solve(arr,n-1,sum);
         }
-        for(int i=1;i<=n;i++)
-        {
-            for(int j=1;j<=target;j++)
-            {
-                if(arr[i-1] <= j)
-                {
-                    dp[i][j] = dp[i-1][j-arr[i-1]] || dp[i-1][j];
-                }
-                else
-                {
-                    dp[i][j] = dp[i-1][j];
-                }
-            }
-        }
-        return dp[n][target];
+        return solve(arr,n-1,sum);
     }
     int equalPartition(int n, int arr[])
     {
@@ -54,10 +32,11 @@ public:
         {
             return 0;
         }
-        int target = sum/2;
-        
-        return fun(arr,n,target);
-        
+        else
+        {
+            sum = sum/2;
+            return solve(arr,n,sum);
+        }
     }
 };
 
