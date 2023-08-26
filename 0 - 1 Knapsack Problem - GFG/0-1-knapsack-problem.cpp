@@ -46,14 +46,14 @@ class Solution
     { 
        //return solve(w,wt,val,n);
        //memset(dp,-1,sizeof(dp));
-       int dp[n+1][w+1];
+       vector<int> prev(w+1), curr(w+1);
        for(int i=0;i<=n;i++)
        {
-           dp[i][0] = 0;
+           curr[0] = 0;
        }
        for(int j=1;j<=w;j++)
        {
-           dp[0][j] = 0;
+           curr[j] = 0;
        }
        
        for(int i=1;i<=n;i++)
@@ -62,15 +62,16 @@ class Solution
            {
                if(wt[i-1] <= j)
                {
-                   dp[i][j] = max(val[i-1] + dp[i-1][j-wt[i-1]], dp[i-1][j]);
+                   curr[j] = max(val[i-1] + prev[j-wt[i-1]], prev[j]);
                }
                else
                {
-                   dp[i][j] = dp[i-1][j];
+                   curr[j] = prev[j];
                }
            }
+           prev = curr;
        }
-       return dp[n][w];
+       return prev[w];
     }
 };
 
