@@ -36,18 +36,18 @@ class Solution {
     {
         //memset(dp,-1,sizeof(dp));
         //return solve(coins,n,sum);
-        long long int dp[n+1][sum+1];
+        vector<long long int> prev(sum+1), curr(sum+1);
         for(int i=0;i<n+1;i++)
         {
             for(int j=0;j<sum+1;j++)
             {
                 if(i==0)
                 {
-                    dp[i][j] = 0;
+                    curr[j] = 0;
                 }
                 if(j==0)
                 {
-                    dp[i][j] = 1;
+                    curr[j] = 1;
                 }
             }
         }
@@ -57,15 +57,16 @@ class Solution {
             {
                 if(coins[i-1] <= j)
                 {
-                    dp[i][j] = dp[i][j-coins[i-1]] + dp[i-1][j];
+                    curr[j] = curr[j-coins[i-1]] + prev[j];
                 }
                 else
                 {
-                    dp[i][j] = dp[i-1][j];
+                    curr[j] = prev[j];
                 }
             }
+            prev = curr;
         }
-        return dp[n][sum];
+        return prev[sum];
     }
 };
 
