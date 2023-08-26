@@ -21,6 +21,7 @@ public:
         
         for(int k=i;k<j;k++)
         {
+            int left,right;
             int temp = solve(arr,i,k) + solve(arr,k+1,j) + arr[i-1]*arr[k]*arr[j];
             
             ans = min(ans,temp);
