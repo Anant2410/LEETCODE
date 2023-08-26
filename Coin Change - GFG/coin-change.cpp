@@ -5,23 +5,37 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    long long int count(int coins[], int n, int sum) {
-        // if(sum == 0)
-        // {
-        //     return 1;
-        // }
-        // if(N==0)
-        // {
-        //     return 0;
-        // }
-        // if(coins[N-1] <= sum)
-        // {
-        //     return count(coins,N,sum-coins[N-1]) + count(coins,N-1,sum);
-        // }
-        // else
-        // {
-        //     return count(coins,N-1,sum);
-        // }
+    // int dp[1001][1001];
+    // long long int solve(int coins[], int n,int sum)
+    // {
+    //     if(n==0)
+    //     {
+    //         return 0;
+    //     }
+    //     if(sum==0)
+    //     {
+    //         return 1;
+    //     }
+    //     if(dp[n][sum] != -1)
+    //     {
+    //         return dp[n][sum];
+    //     }
+    //     if(coins[n-1] <= sum)
+    //     {
+    //         int t = count(coins,n,sum-coins[n-1]);
+    //         int nt = count(coins,n-1,sum);
+            
+    //         return dp[n][sum] =  t + nt;
+    //     }
+    //     else
+    //     {
+    //         return dp[n][sum] =  count(coins,n-1,sum);
+    //     }
+    // }
+    long long int count(int coins[], int n, int sum) 
+    {
+        //memset(dp,-1,sizeof(dp));
+        //return solve(coins,n,sum);
         long long int dp[n+1][sum+1];
         for(int i=0;i<n+1;i++)
         {
