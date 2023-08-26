@@ -9,17 +9,21 @@ using namespace std;
 
 class Solution{
 public:
+    int dp[1001][1001];
     int solve(int arr[], int n, int sum)
     {
         if(n==0) return 0;
-        
         if(sum == 0) return 1;
+        if(dp[n][sum] != -1)
+        {
+            return dp[n][sum];
+        }
         
         if(arr[n-1] <= sum)
         {
-            return solve(arr,n-1,sum-arr[n-1]) || solve(arr,n-1,sum);
+            return dp[n][sum] = solve(arr,n-1,sum-arr[n-1]) || solve(arr,n-1,sum);
         }
-        return solve(arr,n-1,sum);
+        return dp[n][sum] =  solve(arr,n-1,sum);
     }
     int equalPartition(int n, int arr[])
     {
@@ -32,11 +36,9 @@ public:
         {
             return 0;
         }
-        else
-        {
-            sum = sum/2;
-            return solve(arr,n,sum);
-        }
+        memset(dp,-1,sizeof(dp));
+        sum = sum/2;
+        return solve(arr,n,sum);
     }
 };
 
