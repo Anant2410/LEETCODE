@@ -31,7 +31,7 @@ class Solution {
 	        {
 	            for(int j=1;j<=m;j++)
 	            {
-	                if(s[i-1] == t[j-1] && i-1 != j-1)
+	                if(s[i-1] == t[j-1] && i != j)
 	                {
 	                    dp[i][j] = 1 + dp[i-1][j-1];
 	                }
