@@ -9,63 +9,48 @@ using namespace std;
 
 class Solution{
 public:
-    // int solve(int arr[], int n, int sum)
-    // {
-    //     if(n==0) return 0;
-    //     if(sum == 0) return 1;
-    //     if(dp[n][sum] != -1)
-    //     {
-    //         return dp[n][sum];
-    //     }
-        
-    //     if(arr[n-1] <= sum)
-    //     {
-    //         return dp[n][sum] = solve(arr,n-1,sum-arr[n-1]) || solve(arr,n-1,sum);
-    //     }
-    //     return dp[n][sum] =  solve(arr,n-1,sum);
-    // }
-    int solve(int arr[], int n, int sum)
+    int dp[1001][1001];
+    int knapSack(int n, int arr[], int sum)
     {
-        vector<int> prev(sum+1), curr(sum+1);
-        for(int i=0;i<=n;i++)
+        if(n==0)
         {
-            curr[0] = 1;
-        }
-        for(int j=1;j<=sum;j++)
-        {
-            curr[j] = 0;
-        }
-        
-        for(int i=1;i<=n;i++)
-        {
-            for(int j=1;j<=sum;j++)
+            if(sum == 0)
             {
-                if(arr[i-1] <= j)
-                {
-                    curr[j] = prev[j-arr[i-1]] || prev[j];
-                }
-                else
-                {
-                    curr[j] = prev[j];
-                }
+                return 1;
             }
-            prev = curr;
+            return 0;
         }
-        return prev[sum];
+        if(sum == 0)
+        {
+            return 1;
+        }
+        if(dp[n][sum] != -1) return dp[n][sum];
+        if(arr[n-1] <= sum)
+        {
+            int take = knapSack(n-1,arr,sum-arr[n-1]);
+            int nottake = knapSack(n-1,arr,sum);
+            
+            return dp[n][sum] =  take || nottake;
+        }
+        return dp[n][sum] =  knapSack(n-1,arr,sum);
     }
     int equalPartition(int n, int arr[])
     {
         int sum = 0;
+        memset(dp, -1, sizeof(dp));
         for(int i=0;i<n;i++)
         {
             sum += arr[i];
         }
-        if(sum%2)
+        if(sum % 2)
         {
             return 0;
         }
-        sum = sum/2;
-        return solve(arr,n,sum);
+        else
+        {
+            sum = sum/2;
+            return knapSack(n,arr,sum); 
+        }
     }
 };
 
