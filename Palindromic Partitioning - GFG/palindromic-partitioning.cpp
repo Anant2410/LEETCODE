@@ -23,31 +23,17 @@ public:
         }
         return true;
     }
-    // int solve(string str, int i, int j)
-    // {
-    //     if(i>j) return 0;
-    //     if(pal(str,i,j)) return 0;
-    //     if(dp[i][j] != -1) return dp[i][j];
-    //     int ans  = INT_MAX;
-    //     for(int k=i;k<j;k++)
-    //     {
-    //         int temp = solve(str,i,k) + solve(str,k+1,j) + 1;
-            
-    //         ans = min(ans, temp);
-    //     }
-    //     return dp[i][j] =  ans;
-    // }
     int solve(string str, int i, int j)
     {
         if(i>=j) return 0;
         if(pal(str,i,j)) return 0;
         if(dp[i][j] != -1) return dp[i][j];
+        
         int ans = INT_MAX;
         
         for(int k=i;k<j;k++)
         {
-            int left,right;
-            
+            int left, right;
             if(dp[i][k] != -1)
             {
                 left = dp[i][k];
@@ -55,9 +41,8 @@ public:
             else
             {
                 left = solve(str,i,k);
-                dp[i][k] = left; 
+                dp[i][k] = left;
             }
-            
             if(dp[k+1][j] != -1)
             {
                 right = dp[k+1][j];
@@ -70,15 +55,14 @@ public:
             
             int temp = 1 + left + right;
             
-            ans = min(ans,temp);
+            ans = min(ans, temp);
         }
-        return dp[i][j] = ans;
+        return dp[i][j] =  ans;
     }
     int palindromicPartition(string str)
     {
-        int n = str.size();
         memset(dp, -1, sizeof(dp));
-        return solve(str,0,n-1);
+        return solve(str,0,str.size()-1);
     }
 };
 
