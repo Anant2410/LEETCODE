@@ -6,30 +6,34 @@ using namespace std;
 class Solution {
 public:
     int wordLadderLength(string startWord, string targetWord, vector<string>& wordList) {
+        set<string> st(wordList.begin(),wordList.end());
+        st.erase(startWord);
         queue<pair<string,int>> q;
         q.push({startWord,1});
-        set<string> st(wordList.begin(), wordList.end());
-        st.erase(startWord);
+        
         while(!q.empty())
         {
             string word = q.front().first;
             int steps = q.front().second;
             q.pop();
-            if(word == targetWord) return steps;
             
+            if(word == targetWord)
+            {
+                return steps;
+            }
             for(int i=0;i<word.size();i++)
             {
-                char original = word[i];
-                for(char ch='a'; ch<='z';ch++)
+                int org = word[i];
+                for(int ch='a';ch<='z';ch++)
                 {
                     word[i] = ch;
-                    if(st.find(word) != st.end())
+                    if(st.count(word))
                     {
                         st.erase(word);
                         q.push({word,steps+1});
                     }
                 }
-                word[i] = original;
+                word[i] = org;
             }
         }
         return 0;
