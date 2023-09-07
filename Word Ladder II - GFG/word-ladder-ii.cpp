@@ -9,18 +9,20 @@ using namespace std;
 class Solution {
 public:
     vector<vector<string>> findSequences(string beginWord, string endWord, vector<string>& wordList) {
-        set<string> st(wordList.begin(), wordList.end());
-        queue<vector<string>>q;
-        vector<string> used;
+        unordered_set<string> st(wordList.begin(), wordList.end());
+        queue<vector<string>> q;
         q.push({beginWord});
-        used.push_back(beginWord);
-        vector<vector<string>> ans;
+        vector<string> used;
+        used.push_back({beginWord});
         int level = 0;
+        vector<vector<string>> ans;
+
         while(!q.empty())
         {
             vector<string> vec = q.front();
             q.pop();
-            //erase the word that are in previous list
+            //erase all words that has been used 
+            //in previous level to  transform
             if(vec.size() > level)
             {
                 level++;
@@ -32,24 +34,30 @@ public:
             string word = vec.back();
             if(word == endWord)
             {
-                ans.push_back(vec);
+                if(ans.size() == 0)
+                {
+                    ans.push_back(vec);
+                }
+                else if(ans[0].size() == vec.size())
+                {
+                    ans.push_back(vec);
+                }
             }
             for(int i=0;i<word.size();i++)
             {
-                char original = word[i];
-                for(char ch = 'a' ; ch<='z';ch++)
+                char org = word[i];
+                for(int ch = 'a';ch<='z';ch++)
                 {
                     word[i] = ch;
-                    if(st.find(word) != st.end())
+                    if(st.count(word))
                     {
                         vec.push_back(word);
-                        q.push(vec);
+                        q.push({vec});
                         used.push_back(word);
                         vec.pop_back();
                     }
-                    
                 }
-                word[i] = original;
+                word[i] = org;
             }
         }
         return ans;
