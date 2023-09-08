@@ -9,9 +9,11 @@ using namespace std;
 
 class Solution{
     public:
-    vector<int> topo(int n, vector<int>adj[])
+    vector<int> topo(int n, vector<int> adj[])
     {
-        int indegree[n] = {0};
+        vector<int> indegree(n,0);
+        vector<int> ans;
+        
         for(int i=0;i<n;i++)
         {
             for(auto it: adj[i])
@@ -19,7 +21,7 @@ class Solution{
                 indegree[it]++;
             }
         }
-        queue<int>q;
+        queue<int> q;
         for(int i=0;i<n;i++)
         {
             if(indegree[i] == 0)
@@ -27,16 +29,16 @@ class Solution{
                 q.push(i);
             }
         }
-        vector<int> ans;
         while(!q.empty())
         {
             int node = q.front();
             q.pop();
             ans.push_back(node);
-            for(auto it : adj[node])
+            
+            for(auto it: adj[node])
             {
                 indegree[it]--;
-                if(indegree[it]==0)
+                if(indegree[it] == 0)
                 {
                     q.push(it);
                 }
@@ -44,29 +46,31 @@ class Solution{
         }
         return ans;
     }
-    string findOrder(string dict[], int N, int K) {
-        vector<int> adj[K];
-        for(int i=0;i<N-1;i++)
+    string findOrder(string dict[], int n, int k) {
+        vector<int> adj[k];
+        for(int i=0;i<n-1;i++)
         {
             string s1 = dict[i];
             string s2 = dict[i+1];
-            int len = min(s1.size(), s2.size());
-            for(int it=0;it<len;it++)
+            int len = min(s1.size(),s2.size());
+            
+            for(int j=0;j<len;j++)
             {
-                if(s1[it] != s2[it])
+                if(s1[j] != s2[j])
                 {
-                    adj[s1[it] - 'a'].push_back(s2[it] - 'a');
+                    adj[s1[j]-'a'].push_back(s2[j]-'a');
                     break;
                 }
             }
         }
-        vector<int> temp = topo(K,adj);
-        string ans = "";
-        for(auto it: temp)
+        vector<int> ans = topo(k,adj);
+        
+        string s="";
+        for(auto it: ans)
         {
-            ans += char(it+'a');
+            s += (it+'a');
         }
-        return ans;
+        return s;
     }
 };
 
