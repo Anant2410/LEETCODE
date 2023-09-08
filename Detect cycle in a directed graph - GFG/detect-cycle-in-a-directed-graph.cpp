@@ -7,7 +7,7 @@ class Solution {
   public:
     // Function to detect cycle in a directed graph.
     bool isCyclic(int V, vector<int> adj[]) {
-	    int count=0;
+        int count=0;
 	    int vis[V] = {0};
 	    int indegree[V] = {0};
 	    for(int i=0;i<V;i++)
