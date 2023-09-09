@@ -19,17 +19,18 @@ class Solution {
         queue<int> q;
         q.push(src);
         dist[src] = 0;
+        vis[src] =1 ;
         
         while(!q.empty())
         {
             int node = q.front();
             q.pop();
-            vis[node] = 1;
             for(auto it: adj[node])
             {
                 if(!vis[it] && dist[it] > dist[node] + 1)
                 {
                     q.push(it);
+                    vis[it] = 1;
                     dist[it] = 1 + dist[node];
                 }
             }
