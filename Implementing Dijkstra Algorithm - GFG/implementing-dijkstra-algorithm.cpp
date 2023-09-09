@@ -12,22 +12,21 @@ class Solution
     {
         vector<int> dist(V,INT_MAX);
         dist[S] = 0;
-        //for node and distance pair
-        queue<pair<int,int>>q;
-        q.push({S,0});
+        queue<int> q;
+        q.push(S);
         while(!q.empty())
         {
-            int node = q.front().first;
-            int wt = q.front().second;
+            int node = q.front();
             q.pop();
+            
             for(auto it: adj[node])
             {
+                int wt = it[1];
                 int adjnode = it[0];
-                int adjwt = it[1];
-                if(dist[adjnode] > wt + adjwt)
+                if(dist[adjnode] > dist[node] + wt)
                 {
-                    dist[adjnode] = wt+adjwt;
-                    q.push({adjnode,wt+adjwt});
+                    dist[adjnode] = dist[node] + wt;
+                    q.push(adjnode);
                 }
             }
         }
