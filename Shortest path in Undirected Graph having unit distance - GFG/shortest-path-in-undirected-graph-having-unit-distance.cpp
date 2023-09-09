@@ -15,11 +15,10 @@ class Solution {
             adj[it[0]].push_back(it[1]);
             adj[it[1]].push_back(it[0]);
         }
-        vector<int> vis(n,0), dist(n,INT_MAX);
+        vector<int>dist(n,INT_MAX);
         queue<int> q;
         q.push(src);
         dist[src] = 0;
-        vis[src] =1 ;
         
         while(!q.empty())
         {
@@ -27,10 +26,9 @@ class Solution {
             q.pop();
             for(auto it: adj[node])
             {
-                if(!vis[it] && dist[it] > dist[node] + 1)
+                if(dist[it] > dist[node] + 1)
                 {
                     q.push(it);
-                    vis[it] = 1;
                     dist[it] = 1 + dist[node];
                 }
             }
