@@ -8,31 +8,33 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
-        vector<int> adj[N];
+    vector<int> shortestPath(vector<vector<int>>& edges, int n,int m, int src){
+        vector<int> adj[n];
         for(auto it: edges)
         {
             adj[it[0]].push_back(it[1]);
             adj[it[1]].push_back(it[0]);
         }
+        vector<int> vis(n,0), dist(n,INT_MAX);
         queue<int> q;
         q.push(src);
-        vector<int> dist(N,INT_MAX);
         dist[src] = 0;
+        
         while(!q.empty())
         {
             int node = q.front();
             q.pop();
+            vis[node] = 1;
             for(auto it: adj[node])
             {
-                if(dist[it] > dist[node] + 1)
+                if(!vis[it] && dist[it] > dist[node] + 1)
                 {
-                    dist[it] = dist[node] + 1;
                     q.push(it);
+                    dist[it] = 1 + dist[node];
                 }
             }
         }
-        for(int i=0;i<N;i++)
+        for(int i=0;i<n;i++)
         {
             if(dist[i] == INT_MAX)
             {
