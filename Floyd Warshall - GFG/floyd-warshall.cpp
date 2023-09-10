@@ -1,10 +1,10 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 //Initial template for C++
 
 #include<bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 //User function template for C++
 
 class Solution {
@@ -16,10 +16,9 @@ class Solution {
 	        for(int j=0;j<n;j++)
 	        {
 	            if(matrix[i][j] == -1)
-	            {
-	                matrix[i][j] = 1e9;
-	            }
-	            if(i==j) matrix[i][j] = 0;
+    	        {
+    	            matrix[i][j] = 1e9;
+    	        }
 	        }
 	    }
 	    
@@ -29,13 +28,10 @@ class Solution {
 	        {
 	            for(int j=0;j<n;j++)
 	            {
-	                matrix[i][j] = min(matrix[i][j], 
-	                matrix[i][k] + matrix[k][j]);
+	                matrix[i][j] = min(matrix[i][j], matrix[i][k] + matrix[k][j]);
 	            }
 	        }
 	    }
-	    
-	    
 	    for(int i=0;i<n;i++)
 	    {
 	        for(int j=0;j<n;j++)
@@ -49,7 +45,7 @@ class Solution {
 	}
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 int main(){
 	int tc;
 	cin >> tc;
@@ -72,4 +68,5 @@ int main(){
 		}
 	}
 	return 0;
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
