@@ -12,13 +12,12 @@ class Solution {
     *   S: source vertex to start traversing graph with
     *   V: number of vertices
     */
-    vector<int> bellman_ford(int V, vector<vector<int>>& edges, int S) {
-        
-        vector<int> dist(V,1e8);
+    vector<int> bellman_ford(int v, vector<vector<int>>& edges, int S) {
+        vector<int> dist(v, 1e8);
         
         dist[S] = 0;
         
-        for(int i=0;i<V-1;i++)
+        for(int i=0;i<v-1;i++)
         {
             for(auto it: edges)
             {
@@ -28,14 +27,13 @@ class Solution {
                 }
             }
         }
-        //nth iteration//
         for(auto it: edges)
+        {
+            if(dist[it[0]] + it[2] < dist[it[1]])
             {
-                if(dist[it[0]] + it[2] < dist[it[1]])
-                {
-                    return {-1};
-                }
+                return {-1};
             }
+        }
         return dist;
     }
 };
