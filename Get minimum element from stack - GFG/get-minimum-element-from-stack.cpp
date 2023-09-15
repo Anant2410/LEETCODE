@@ -18,50 +18,64 @@ public :
 
 class Solution{
     int minEle;
-    stack<int> s;
+    stack<int> st;
     public:
     
-       int getMin(){
-           if(s.empty()) return -1;
+       /*returns min element from stack*/
+       int getMin()
+       {
+           if(st.empty())
+           {
+               return -1;
+           }
            return minEle;
        }
        
+       /*returns poped element from stack*/
        int pop(){
-            //if empty 
-            if(s.empty()) return -1;
-            //if not empty then two cases
-            else{
-                if(s.top() >= minEle){
-                    int temp = s.top();
-                    s.pop();
-                    return temp;
-                }
-                else if(s.top() < minEle){
-                    //means jo stack ke top pe hai vo ek flag value  hai aur asliyat mai minEle return kario
-                    //but ab minEle change bhi ho jeyag so pehle store karao kahein taki return kar sake artend 
-                    int toReturn = minEle;
-                    minEle= 2*minEle - s.top();
-                    s.pop();
-                    return toReturn;
-                }
-            }
-          
+           
+           if(st.empty())
+           {
+               return -1;
+           }
+           else
+           {
+               if(st.top() >= minEle)
+               {
+                   int res = st.top();
+                   st.pop();
+                   return res;
+               }
+               else
+               {
+                   int res = minEle;
+                   minEle = 2 * minEle - st.top();
+                   st.pop();
+                   return res;
+               }
+           }
        }
        
+       /*push element x into the stack*/
        void push(int x){
-            //2 cases here also
-            if(s.empty()){
-                s.push(x);
-                minEle =x;
-            }
-            else{
-                //what to push depend on x 2 cases
-                if(x >=minEle) s.push(x);
-                else{
-                    s.push(2*x -minEle);
-                    minEle =x;
-                }
-            }
+           
+           if(st.empty())
+           {
+               st.push(x);
+               minEle = x;
+           }
+           else
+           {
+               if(x >= minEle)
+               {
+                   st.push(x);
+               }
+               else
+               {
+                   st.push(2*x - minEle);
+                   minEle = x;
+               }
+           }
        }
 };
 
