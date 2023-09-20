@@ -105,46 +105,57 @@ struct Node
 
 class Solution {
 public:
-    bool leaf(Node* root){
-        if(root->left==NULL && root->right==NULL) return true;
-        
+    bool leaf(Node* root)
+    {
+        if(root->left ==nullptr && root->right==nullptr)
+        {
+            return true;
+        }
         return false;
     }
-    void left(Node* root, vector<int>& ans){
+    void leftview(Node* root, vector<int>& ans)
+    {
         Node* curr = root->left;
-        while(curr){
+        while(curr)
+        {
             if(!leaf(curr)) ans.push_back(curr->data);
-            
             if(curr->left) curr = curr->left;
-            
-            else  curr = curr->right;
+            else curr = curr->right;
         }
     }
-    void leave(Node* root, vector<int>& ans){
+    void bottomview(Node* root, vector<int>& ans)
+    {
         if(leaf(root)) ans.push_back(root->data);
-        if(root->left) leave(root->left,ans);
-        if(root->right) leave(root->right,ans);
+        if(root->left) bottomview(root->left,ans);
+        if(root->right) bottomview(root->right,ans);
     }
-    void right(Node* root, vector<int>& ans){
+    void rightview(Node* root, vector<int>& ans)
+    {
+        vector<int> temp;
         Node* curr = root->right;
-        vector<int> ds;
-        while(curr){
-            if(!leaf(curr)) ds.push_back(curr->data);
-            
+        
+        while(curr)
+        {
+            if(!leaf(curr)) temp.push_back(curr->data);
             if(curr->right) curr = curr->right;
-            
-            else  curr = curr->left;
+            else curr = curr->left;
         }
-        for(int i= ds.size()-1;i>=0;i--) ans.push_back(ds[i]);
+        
+        for(int i=temp.size()-1;i>=0;i--)
+        {
+            ans.push_back(temp[i]); 
+        }
     }
     vector <int> boundary(Node *root)
     {
         vector<int> ans;
-        if(root==NULL) return ans;
+        if(root==nullptr) return ans;
+        
         if(!leaf(root)) ans.push_back(root->data);
-        left(root,ans);
-        leave(root,ans);
-        right(root,ans);
+        
+        leftview(root,ans);
+        bottomview(root,ans);
+        rightview(root,ans);
         
         return ans;
     }
