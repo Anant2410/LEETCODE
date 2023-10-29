@@ -9,35 +9,63 @@ using namespace std;
 
 class Solution{
 public:
-    
-    int knapSack(int N, int W, int val[], int wt[])
+    // int dp[1001][1001];
+    // int fun(int n, int w, int val[], int wt[])
+    // {
+    //     if(n==0 || w == 0)
+    //     {
+    //         return 0;
+    //     }
+    //     if(dp[n][w] != -1)
+    //     {
+    //         return dp[n][w];
+    //     }
+    //     if(wt[n-1] <= w)
+    //     {
+    //         int take = val[n-1] + fun(n,w-wt[n-1],val,wt);
+    //         int nottake = fun(n-1,w,val,wt);
+            
+    //         return dp[n][w] =  max(take,nottake);
+    //     }
+    //     else
+    //     {
+    //         return dp[n][w]= fun(n-1,w,val,wt);
+    //     }
+    // }
+    int knapSack(int n, int w, int val[], int wt[])
     {
-       int dp[N+1][W+1];
-       for(int i=0;i<N+1;i++)
-       {
-           for(int j=0;j<W+1;j++)
-           {
-               if(i==0 || j==0)
-               {
-                   dp[i][j] = 0;
-               }
-           }
-       }
-       for(int i=1;i<N+1;i++)
-       {
-           for(int j=1;j<W+1;j++)
-           {
-               if(wt[i-1] <= j)
-               {
-                   dp[i][j] = max(val[i-1] + dp[i][j-wt[i-1]], dp[i-1][j]);
-               }
-               else
-               {
-                   dp[i][j] = dp[i-1][j];
-               }
-           }
-       }
-       return dp[N][W];
+        // memset(dp,-1,sizeof(dp));
+        // return fun(n,w,val,wt);
+        
+        vector<int> prev(w+1),curr(w+1);
+        for(int i=0;i<=n;i++)
+        {
+            curr[0] = 0;
+        }
+        for(int j=1;j<=w;j++)
+        {
+            curr[j] = 0;
+        }
+        
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=w;j++)
+            {
+                if(wt[i-1] <= j)
+                {
+                    int take = val[i-1] + curr[j-wt[i-1]];
+                    int nottake = prev[j];
+                    
+                    curr[j] = max(take,nottake);
+                }
+                else
+                {
+                    curr[j] = prev[j];
+                }
+            }
+            prev = curr;
+        }
+        return prev[w];
     }
 };
 
