@@ -32,18 +32,31 @@ struct Node {
 class Solution {
   public:
     // Function to return a list containing the inorder traversal of the tree.
-    void f(Node* root, vector<int>& ans)
-    {
-        if(!root) return ;
-        
-        f(root->left,ans);
-        ans.push_back(root->data);
-        f(root->right,ans);
-        return;
-    }
     vector<int> inOrder(Node* root) {
         vector<int> ans;
-        f(root,ans);
+        stack<Node*> st;
+        Node* curr = root;
+        if(root==nullptr) return ans;
+        
+        while(true)
+        {
+            if(curr)
+            {
+                st.push(curr);
+                curr = curr->left;
+            }
+            else
+            {
+                if(st.empty())
+                {
+                    break;
+                }
+                curr = st.top();
+                st.pop();
+                ans.push_back(curr->data);
+                curr = curr->right;
+            }
+        }
         return ans;
     }
 };
