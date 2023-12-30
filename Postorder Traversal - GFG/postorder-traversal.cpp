@@ -127,29 +127,37 @@ struct Node
 vector <int> postOrder(Node* root)
 {
     vector<int> ans;
-    stack<Node*> st1, st2;
+    stack<Node*> st;
     
     Node* node = root;
-    st1.push(node);
     
-    while(!st1.empty())
+    while(node || !st.empty())
     {
-        node = st1.top();
-        st1.pop();
-        st2.push(node);
-        if(node->left)
+        if(node != nullptr)
         {
-            st1.push(node->left);
+            st.push(node);
+            node = node->left;
         }
-        if(node->right)
+        else
         {
-            st1.push(node->right);
+            Node* temp = st.top()->right;
+            if(temp == nullptr)
+            {
+                temp = st.top();
+                st.pop();
+                ans.push_back(temp->data);
+                while(!st.empty() && temp == st.top()->right)
+                {
+                    temp = st.top();
+                    st.pop();
+                    ans.push_back(temp->data);
+                }
+            }
+            else
+            {
+                node = temp;
+            }
         }
-    }
-    while(!st2.empty())
-    {
-        ans.push_back(st2.top()->data);
-        st2.pop();
     }
     return ans;
 }
